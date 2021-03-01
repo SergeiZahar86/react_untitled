@@ -1,5 +1,7 @@
+
 import React from 'react'
 import TodoItem from "./TodoItem";
+import PropTypes from 'prop-types'  // подключаем для типизации
 
 
 const styles = {
@@ -10,7 +12,7 @@ const styles = {
 	}
 }
 
-export default function TodoList(props)
+function TodoList(props)
 {
 	return (
 		<ul style={styles.ul}>
@@ -20,10 +22,16 @@ export default function TodoList(props)
 			{/*<TodoItem/>*/}
 			{/*<TodoItem/>*/}
 
-			 {/*итерация массива*/}
-			{props.todosss.map((todo1, index1) => {
-				return <TodoItem oness={todo1} key={todo1.id} index={index1}/>
+			{/*итерация массива*/}
+			{props.todosss.map((todo1, index ) => {
+				return <TodoItem tod={todo1} key={todo1.id} ind={index}/>
 			})}
 		</ul>
 	)
 }
+// Типизация входных данных для функции TodoList
+TodoList.propTypes = {
+	todosss:PropTypes.arrayOf(PropTypes.object).isRequired
+}
+
+export default TodoList

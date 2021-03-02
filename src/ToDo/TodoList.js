@@ -1,4 +1,3 @@
-
 import React from 'react'
 import TodoItem from "./TodoItem";
 import PropTypes from 'prop-types'  // подключаем для типизации
@@ -23,15 +22,24 @@ function TodoList(props)
 			{/*<TodoItem/>*/}
 
 			{/*итерация массива*/}
-			{props.todosss.map((todo1, index ) => {
-				return <TodoItem tod={todo1} key={todo1.id} ind={index}/>
+			{props.todosss.map((todo1, index) =>
+			{
+				return (
+					<TodoItem
+						tod={todo1}
+						key={todo1.id}
+						ind={index}
+						changeCC={props.onToggle}
+					/>)
 			})}
 		</ul>
 	)
 }
+
 // Типизация входных данных для функции TodoList
 TodoList.propTypes = {
-	todosss:PropTypes.arrayOf(PropTypes.object).isRequired
+	todosss: PropTypes.arrayOf(PropTypes.object).isRequired,
+	onToggle: PropTypes.func.isRequired
 }
 
 export default TodoList

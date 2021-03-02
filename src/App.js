@@ -1,5 +1,7 @@
 import React from 'react'
 import TodoList from "./ToDo/TodoList";
+import Context from "./context";
+import AddTodo from "./ToDo/AddTodo";
 
 function App()
 {
@@ -10,25 +12,47 @@ function App()
 	]);
 
 
-
 	function toggleTodo(id)
 	{
 		setTodos(
-		todos.map(todofff => {
-			if(todofff.id === id){
-				todofff.completed = !todofff.completed
-			}
-			return todofff
-		})
+			todos.map(todofff =>
+			{
+				if (todofff.id === id)
+				{
+					todofff.completed = !todofff.completed
+				}
+				return todofff
+			})
+		)
+	}
+
+	function removeTodo(id)
+	{
+		setTodos(todos.filter(todo => todo.id !== id))
+	}
+
+
+	function addTodo(title)
+	{
+		setTodos(
+			todos.concat([
+				{
+					title,
+					id: Date.now(),
+					completed: false
+				}
+			])
 		)
 	}
 
 	return (
-		<div className={'wrapper'}>
-			<h1>React tutorial</h1>
-
-			<TodoList todosss={todos} onToggle={toggleTodo}/>
-		</div>);
+		<Context.Provider value={{removeTodo}}>
+			<div className={'wrapper'}>
+				<h1>React tutorial</h1>
+				<AddTodo onCreate={addTodo}/>
+				{todos.length ? <TodoList todosss={todos} onToggle={toggleTodo}/> : <p>No todos!</p>}
+			</div>
+		</Context.Provider>)
 }
 
 export default App;

@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext} from 'react'
 import PropTypes from 'prop-types'    // подключаем для типизации
 import TodoList from "./TodoList";
+import Context from "../context";
 
 const styles = {
 	stron: {
@@ -26,6 +27,8 @@ const styles1 = {
 
 function TodoItem({tod, ind, changeCC}){
 	//console.log('todo_CHECK', tod)
+	const {removeTodo} = useContext(Context)
+
 	const classes = []
 
 	if(tod.completed){
@@ -47,7 +50,7 @@ function TodoItem({tod, ind, changeCC}){
 	            {tod.title}
             </span>
 			{/*{tod.id}*/}
-			<button className='rm'>&times;</button>
+			<button className='rm' onClick={removeTodo.bind(null, tod.id)}>&times;</button>
 		</li>)
 }
 
